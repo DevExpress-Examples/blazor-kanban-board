@@ -1,0 +1,21 @@
+﻿<div @ref=columnContainer>
+    <DxGrid AllowDragRows=true
+            ShowAllRows=true
+            AllowedDropTarget="GridAllowedDropTarget.All"
+            CssClass="kanban-column-grid"
+            Data="ColumnData"
+            KeyFieldName="@ColumnName"
+            ItemsDropped="ItemsDropped"
+            CustomizeElement="OnCustomizeElement">
+        <DragHintTextTemplate Context="ctx">
+            @Kanban?.CardTemplate?.Invoke(ctx.DataItems.First())
+        </DragHintTextTemplate>
+        <Columns>
+            <DxGridDataColumn>
+                <CellDisplayTemplate Context="ctx">
+                    @Kanban?.CardTemplate?.Invoke(ctx.DataItem)
+                </CellDisplayTemplate>
+            </DxGridDataColumn>
+        </Columns>
+    </DxGrid>
+</div>
