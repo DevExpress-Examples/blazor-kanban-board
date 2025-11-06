@@ -1,15 +1,15 @@
 ﻿using DevExpress.Blazor;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System.Collections;
+using System.ComponentModel;
 using System.Reflection;
 
 namespace blazor_kanban.Components.DxKanban;
 public partial class DxKanban : ComponentBase, IAsyncDisposable {
-
     #region Fields
-    private List<DxKanbanColumn> columns = new List<DxKanbanColumn>();
-    private string containerID = $"c_{Guid.NewGuid()}";
+    private IEnumerable fakeDataToDrawSingleCell = Enumerable.Range(0, 1);
     private IJSObjectReference? jsModule;
     #endregion
 
@@ -26,7 +26,7 @@ public partial class DxKanban : ComponentBase, IAsyncDisposable {
     public string? CssClass { get; set; }
 
     [Parameter]
-    public string? GroupFieldName { get; set; }
+    public string? ColumnNameFieldName { get; set; }
 
     [Parameter]
     public RenderFragment? Columns { get; set; }
@@ -35,15 +35,26 @@ public partial class DxKanban : ComponentBase, IAsyncDisposable {
     public RenderFragment<object>? CardTemplate { get; set; }
 
     [Parameter]
-    public EventCallback<KanbanItemsDroppedEventArgs> CardDropped { get; set; }
+    public EventCallback<GridItemsDroppedEventArgs> CardDropped { get; set; }
+    #endregion
+
+    #region Event Handlers
+    private void ApplyCssClassesToHeaderAndDataCells(GridCustomizeElementEventArgs e) {
+        if(e.ElementType == GridElementType.HeaderCell) {
+            e.CssClass = "kanban-header-cell";
+        }
+        if(e.ElementType == GridElementType.DataCell) {
+            e.CssClass = "kanban-data-cell";
+        }
+    }
     #endregion
 
     #region Lifecycle Methods
     protected override async Task OnAfterRenderAsync(bool firstRender) {
-        if(firstRender) {
+        if(jsModule is null) {
             jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/DxKanban/DxKanban.razor.js");
-            StateHasChanged();
         }
+        await jsModule.InvokeVoidAsync("MoveGridDataCellContentToAnchors");
     }
 
     public async ValueTask DisposeAsync() {
@@ -56,57 +67,7 @@ public partial class DxKanban : ComponentBase, IAsyncDisposable {
     }
     #endregion
 
-    #region Event Handlers
-    private void OnCustomizeElement(GridCustomizeElementEventArgs e) {
-        if(e.ElementType == GridElementType.HeaderCell) {
-            e.CssClass = "kanban-header-cell";
-        }
-        if(e.ElementType == GridElementType.DataCell) {
-            e.CssClass = "kanban-data-cell";
-        }
-    }
-
-    private void OnItemsDropped(GridItemsDroppedEventArgs e) {
-        CardDropped.InvokeAsync(new KanbanItemsDroppedEventArgs(e));
-    }
-
-    #endregion
-
     #region Utility Methods
-    private IList<object> GetColumnData(string? columnName) {
-        if(Data is null) {
-            return Array.Empty<object>();
-        }
-        if(string.IsNullOrEmpty(columnName)) {
-            throw new ArgumentNullException(nameof(columnName));
-        }
-
-        var columnData = Data.OfType<object>()
-            .GroupBy(item => GetGroupValue(item))
-            .FirstOrDefault(item => item.Key.Equals(columnName));
-
-        if(columnData is null) {
-            return Array.Empty<object>();
-        }
-        return columnData.Select(item => item).ToList();
-    }
-
-    private object GetGroupValue(object item) {
-        if(string.IsNullOrEmpty(GroupFieldName)) {
-            throw new ArgumentNullException(nameof(GroupFieldName));
-        }
-        return item.GetType().GetProperty(GroupFieldName)?.GetValue(item)!;
-    }
-
-    public void AddColumn(DxKanbanColumn column) {
-        columns.Add(column);
-        StateHasChanged();
-    }
-
-    public async Task MoveCardContent(ElementReference container) {
-        if(jsModule != null) {
-            await jsModule.InvokeVoidAsync("MoveCardContent", container);
-        }
-    }
+    public void Refresh() => StateHasChanged();
     #endregion
 }

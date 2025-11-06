@@ -1,45 +1,9 @@
-﻿<style>
-    @($"#{containerID}") .kanban-data-cell {
-        border-bottom-left-radius: 1rem !important;
-        border-bottom-right-radius: 1rem !important;
-        background-color: rgba(192, 192, 192, 0.4);
-    }
-
-    @($"#{containerID}") .kanban-header-cell {
-        border-top-left-radius: 1rem !important;
-        border-top-right-radius: 1rem !important;
-        background-color: rgba(192, 192, 192, 0.4);
-    }
-
-    .kanban-drag-hint .dxbl-grid-row-drag-hint-drag-anchor {
-        display: none;
-    }
-
-    .kanban-drag-hint {
-        padding: 0;
-        width: 240px;
-    }
-</style>
-
-<CascadingValue IsFixed="true" Value="this">
-    @Columns
-    <div id="@containerID" class="@CssClass">
-        <DxGrid CssClass="kanban-layout-grid"
-                Data="Enumerable.Range(0, 1)"
-                CustomizeElement="OnCustomizeElement">
-            <Columns>
-                @foreach(var column in columns) {
-                    <DxGridDataColumn CaptionAlignment=GridTextAlignment.Center
-                                      Caption="@column.ColumnName" AllowSort=false Width="260px">
-                        <CellDisplayTemplate>
-                            <DxKanbanColumnContent ColumnName="@column.ColumnName"
-                                                   ColumnData="GetColumnData(column.ColumnName)"
-                                                   ItemsDropped="OnItemsDropped">
-                            </DxKanbanColumnContent>
-                        </CellDisplayTemplate>
-                    </DxGridDataColumn>
-                }
-            </Columns>
-        </DxGrid>
-    </div>
-</CascadingValue>
+﻿<DxGrid CssClass="@($"kanban-layout-grid {CssClass}")"
+        Data="fakeDataToDrawSingleCell"
+        CustomizeElement="ApplyCssClassesToHeaderAndDataCells">
+    <Columns>
+        <CascadingValue IsFixed=true Value="this">
+            @Columns
+        </CascadingValue>
+    </Columns>
+</DxGrid>

@@ -1,20 +1,20 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using DevExpress.Blazor;
+using DevExpress.ClipboardSource.SpreadsheetML;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+using System.Reflection;
 
 namespace blazor_kanban.Components.DxKanban;
 public partial class DxKanbanColumn : ComponentBase {
     #region Parameters
-    [Parameter]
-    public string? ColumnName { get; set; }
-
     [CascadingParameter]
     private DxKanban? Kanban { get; set; }
+
+    [Parameter]
+    public string? ColumnName { get; set; }
     #endregion
 
-    #region Lifecycle Methods
-    protected override void OnInitialized() {
-        if(Kanban != null) {
-            Kanban.AddColumn(this);
-        }
-    }
+    #region Event Handlers
+    protected override bool ShouldRender() => false; //t1135370
     #endregion
 }

@@ -1,1 +1,8 @@
-﻿
+﻿<DxGridDataColumn Caption="@ColumnName"
+                  CaptionAlignment="GridTextAlignment.Center"
+                  Width="260px"
+                  VisibleIndexChanged="() => Kanban?.Refresh()">
+    <CellDisplayTemplate>
+        <DxKanbanColumnGrid Kanban="Kanban" ColumnName="@ColumnName"></DxKanbanColumnGrid>
+    </CellDisplayTemplate>
+</DxGridDataColumn>
