@@ -9,7 +9,7 @@ using System.Reflection;
 namespace blazor_kanban.Components.DxKanban;
 public partial class DxKanban : ComponentBase, IAsyncDisposable {
     #region Fields
-    private IEnumerable fakeDataToDrawSingleCell = Enumerable.Range(0, 1);
+    private IEnumerable sampleSingleCellData = Enumerable.Range(0, 1);
     private IJSObjectReference? jsModule;
     #endregion
 
