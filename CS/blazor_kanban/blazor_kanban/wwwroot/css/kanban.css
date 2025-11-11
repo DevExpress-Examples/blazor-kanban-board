@@ -1,4 +1,4 @@
-﻿.dxbl-grid[data-dx-focus-hidden] th.kanban-header-cell:focus-visible {
+.dxbl-grid[data-dx-focus-hidden] th.kanban-header-cell:focus-visible {
     border-top-left-radius: 1rem !important;
     border-top-right-radius: 1rem !important;
 }
@@ -26,7 +26,7 @@
 
 .kanban-drag-hint {
     padding: 0;
-    width: 240px;
+    width: 15rem;
 }
 
 .kanban-drag-anchor > * {
@@ -35,7 +35,7 @@
 
 .kanban-layout-grid {
     border: none;
-    height: 480px;
+    height: 30rem;
 }
 
 .kanban-layout-grid > .dxbl-scroll-viewer > .dxbl-scroll-viewer-content > .dxbl-grid-table {
@@ -57,7 +57,7 @@
 }
 
 .kanban-column-grid {
-    height: 360px;
+    height: 22.5rem;
     background: transparent;
     border: none;
 }
@@ -92,7 +92,7 @@
 
 .kanban-column-grid .dxbl-grid-table {
     border: none !important;
-    border-spacing: 0 10px;
+    border-spacing: 0 1rem;
     border-collapse: separate;
 }
 
