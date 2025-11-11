@@ -56,7 +56,7 @@ public partial class DxKanban : ComponentBase, IAsyncDisposable {
         if(jsModule is null) {
             jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/DxKanban/DxKanban.razor.js");
         }
-        await jsModule.InvokeVoidAsync("MoveGridDataCellContentToAnchors");
+        await jsModule.InvokeVoidAsync("moveGridDataCellContentToAnchors");
     }
 
     public async ValueTask DisposeAsync() {

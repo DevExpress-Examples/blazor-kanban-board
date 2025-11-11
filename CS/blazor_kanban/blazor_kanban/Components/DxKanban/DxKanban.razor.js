@@ -1,4 +1,4 @@
-export function MoveGridDataCellContentToAnchors() {
+export function moveGridDataCellContentToAnchors() {
     for (var columnContainer of document.getElementsByClassName("kanban-column-grid")) {
         var dragAnchors = columnContainer.getElementsByClassName("kanban-drag-anchor");
         for (var dragAnchor of dragAnchors) {
