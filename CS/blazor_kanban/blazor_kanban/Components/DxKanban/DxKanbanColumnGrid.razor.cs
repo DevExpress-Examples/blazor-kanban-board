@@ -14,11 +14,13 @@ public partial class DxKanbanColumnGrid : ComponentBase {
 
     #region Event Handlers
     private void ApplyCssClassesToDragAnchorsAndHints(GridCustomizeElementEventArgs e) {
-        if(e.ElementType == GridElementType.RowDragAnchorCell) {
-            e.CssClass = "kanban-drag-anchor";
-        }
-        if(e.ElementType == GridElementType.DragHint) {
-            e.CssClass = "kanban-drag-hint";
+        switch(e.ElementType) {
+            case GridElementType.RowDragAnchorCell:
+                e.CssClass = "kanban-drag-anchor";
+                break;
+            case GridElementType.DragHint:
+                e.CssClass = "kanban-drag-hint";
+                break;
         }
     }
     #endregion

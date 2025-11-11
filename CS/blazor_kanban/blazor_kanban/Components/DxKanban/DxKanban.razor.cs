@@ -40,11 +40,13 @@ public partial class DxKanban : ComponentBase, IAsyncDisposable {
 
     #region Event Handlers
     private void ApplyCssClassesToHeaderAndDataCells(GridCustomizeElementEventArgs e) {
-        if(e.ElementType == GridElementType.HeaderCell) {
-            e.CssClass = "kanban-header-cell";
-        }
-        if(e.ElementType == GridElementType.DataCell) {
-            e.CssClass = "kanban-data-cell";
+        switch(e.ElementType) {
+            case GridElementType.HeaderCell:
+                e.CssClass = "kanban-header-cell";
+                break;
+            case GridElementType.DataCell:
+                e.CssClass = "kanban-data-cell";
+                break;
         }
     }
     #endregion
