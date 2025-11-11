@@ -7,14 +7,14 @@
         CssClass="kanban-column-grid"
         CustomizeElement="ApplyCssClassesToDragAnchorsAndHints">
     <DragHintTextTemplate Context="ctx">
-        <div class="w-100">
+        <div class="dx-card">
             @Kanban.CardTemplate?.Invoke(ctx.DataItems.First())
         </div>
     </DragHintTextTemplate>
     <Columns>
         <DxGridDataColumn>
             <CellDisplayTemplate Context="ctx">
-                <div class="w-100">
+                <div class="dx-card">
                     @Kanban.CardTemplate?.Invoke(ctx.DataItem)
                 </div>
             </CellDisplayTemplate>
