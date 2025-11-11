@@ -69,5 +69,9 @@ public partial class DxKanban : ComponentBase, IAsyncDisposable {
 
     #region Utility Methods
     public void Refresh() => StateHasChanged();
+
+    private string GetGridCssClass() {
+        return $"kanban-layout-grid {CssClass}";
+    }
     #endregion
 }
