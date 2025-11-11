@@ -54,7 +54,7 @@ public partial class DxKanban : ComponentBase, IAsyncDisposable {
     #region Lifecycle Methods
     protected override async Task OnAfterRenderAsync(bool firstRender) {
         if(jsModule is null) {
-            jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/DxKanban/DxKanban.razor.js");
+            jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "/Components/DxKanban/DxKanban.razor.js");
         }
         await jsModule.InvokeVoidAsync("moveGridDataCellContentToAnchors");
     }
