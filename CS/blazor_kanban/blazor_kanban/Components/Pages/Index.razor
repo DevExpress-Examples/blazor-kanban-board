@@ -63,6 +63,8 @@
     }
 
     private void SwapNeighbors(int targetCardIndex) {
+        if(targetCardIndex < 0 || targetCardIndex >= KanbanData.Count - 1)
+            return;
         (KanbanData[targetCardIndex], KanbanData[targetCardIndex + 1])
         = (KanbanData[targetCardIndex + 1], KanbanData[targetCardIndex]);
     }
