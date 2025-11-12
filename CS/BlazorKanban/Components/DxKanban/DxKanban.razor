@@ -1,0 +1,9 @@
+﻿<DxGrid CssClass="@GetGridCssClass()"
+        Data="sampleSingleCellData"
+        CustomizeElement="ApplyCssClassesToHeaderAndDataCells">
+    <Columns>
+        <CascadingValue IsFixed=true Value="this">
+            @Columns
+        </CascadingValue>
+    </Columns>
+</DxGrid>

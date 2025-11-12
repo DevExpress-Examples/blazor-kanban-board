@@ -1,0 +1,71 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@inject HttpClient Http
+
+@using BlazorKanban.Components.DxKanban
+
+<DxKanban Data="@KanbanData" CardDropped=OnCardDropped
+          CssClass="my-kanban" ColumnNameFieldName="GroupName">
+    <Columns>
+        <DxKanbanColumn ColumnName="Not Started"></DxKanbanColumn>
+        <DxKanbanColumn ColumnName="Deferred"></DxKanbanColumn>
+        <DxKanbanColumn ColumnName="In Progress"></DxKanbanColumn>
+        <DxKanbanColumn ColumnName="Completed"></DxKanbanColumn>
+    </Columns>
+    <CardTemplate Context="ctx">
+        @{
+            var dataItem = ctx as KanbanModel;
+        }
+        <div class="card">
+            <div class="card-priority @dataItem!.PriorityCssClass"></div>
+            <div class="card-subject">@dataItem!.Subject</div>
+            <div class="card-assignee">@dataItem!.Assignee</div>
+        </div>
+    </CardTemplate>
+</DxKanban>
+
+
+@code {
+    public List<KanbanModel> KanbanData { get; set; } = [];
+
+    public class KanbanModel {
+        public int ID { get; set; }
+        public required string GroupName { get; set; }
+        public required string Subject { get; set; }
+        public string? PriorityCssClass { get; set; }
+        public string? Assignee { get; set; }
+    }
+
+    protected override async Task OnInitializedAsync() {
+        KanbanData = await Http.GetFromJsonAsync<List<KanbanModel>>(
+            "https://localhost:7226/data/kanban.json") ?? new();
+    }
+
+    private void OnCardDropped(GridItemsDroppedEventArgs e) {
+        if(e.DroppedItems[0] is not KanbanModel droppedCard) {
+            return;
+        }
+        var targetCard = e.TargetItem as KanbanModel;
+        var droppedCardIndex = KanbanData.IndexOf(droppedCard);
+        KanbanData.RemoveAt(droppedCardIndex);
+        var targetCardIndex = targetCard is null ? -1 : KanbanData.IndexOf(targetCard);
+        droppedCard.GroupName = e.Grid.KeyFieldName;
+
+        if(targetCard is null) {
+            KanbanData.Add(droppedCard!);
+        }
+        else {
+            KanbanData.Insert(targetCardIndex, droppedCard!);
+            if(e.DropPosition == GridItemDropPosition.After) {
+                SwapNeighbors(targetCardIndex);
+            }
+        }
+    }
+
+    private void SwapNeighbors(int targetCardIndex) {
+        if(targetCardIndex < 0 || targetCardIndex >= KanbanData.Count - 1)
+            return;
+        (KanbanData[targetCardIndex], KanbanData[targetCardIndex + 1])
+        = (KanbanData[targetCardIndex + 1], KanbanData[targetCardIndex]);
+    }
+}
