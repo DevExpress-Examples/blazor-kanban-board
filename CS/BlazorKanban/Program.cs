@@ -1,4 +1,4 @@
-﻿using blazor_kanban.Components;
+﻿using BlazorKanban.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 

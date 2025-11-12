@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using System.Reflection;
 
-namespace blazor_kanban.Components.DxKanban;
+namespace BlazorKanban.Components.DxKanban;
 public partial class DxKanbanColumnGrid : ComponentBase {
     #region Parameters
     [Parameter, EditorRequired]

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Reflection;
 
-namespace blazor_kanban.Components.DxKanban;
+namespace BlazorKanban.Components.DxKanban;
 public partial class DxKanbanColumn : ComponentBase {
     #region Parameters
     [CascadingParameter]

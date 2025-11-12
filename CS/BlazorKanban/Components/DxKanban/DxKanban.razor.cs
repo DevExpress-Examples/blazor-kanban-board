@@ -6,7 +6,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace blazor_kanban.Components.DxKanban;
+namespace BlazorKanban.Components.DxKanban;
 public partial class DxKanban : ComponentBase, IAsyncDisposable {
     #region Fields
     private IEnumerable sampleSingleCellData = Enumerable.Range(0, 1);
