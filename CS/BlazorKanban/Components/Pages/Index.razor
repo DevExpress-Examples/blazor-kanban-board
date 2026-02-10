@@ -1,8 +1,8 @@
 ﻿@page "/"
 @rendermode InteractiveServer
-@inject HttpClient Http
 
 @using BlazorKanban.Components.DxKanban
+@using BlazorKanban.Data
 
 <DxKanban Data="@KanbanData" CardDropped=OnCardDropped
           CssClass="my-kanban" ColumnNameFieldName="GroupName">
@@ -28,17 +28,8 @@
 @code {
     public List<KanbanModel> KanbanData { get; set; } = [];
 
-    public class KanbanModel {
-        public int ID { get; set; }
-        public required string GroupName { get; set; }
-        public required string Subject { get; set; }
-        public string? PriorityCssClass { get; set; }
-        public string? Assignee { get; set; }
-    }
-
-    protected override async Task OnInitializedAsync() {
-        KanbanData = await Http.GetFromJsonAsync<List<KanbanModel>>(
-            "https://localhost:7226/data/kanban.json") ?? new();
+    protected override void OnInitialized() {
+        KanbanData = KanbanExampleDataProvider.GetData();
     }
 
     private void OnCardDropped(GridItemsDroppedEventArgs e) {
