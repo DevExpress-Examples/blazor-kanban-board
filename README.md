@@ -11,7 +11,7 @@ This example implements a Kanban Board control (`DxKanban`) using the [DevExpres
 * Organizes cards across different columns
 * Allows users to reorder cards/columns using drag & drop
 
-![Blazor Kanban Board UI Component](images/auto-fit-grid-columns.gif)
+![Blazor Kanban Board UI Component](images/blazor-kanban-board.gif)
 
 ## Quick Start
 
