@@ -38,7 +38,7 @@
 
     protected override async Task OnInitializedAsync() {
         KanbanData = await Http.GetFromJsonAsync<List<KanbanModel>>(
-            "https://localhost:7226/data/kanban.json") ?? new();
+            "https://localhost:7226/data/kanban.json") ?? new(); // Update the port number here
     }
 
     private void OnCardDropped(GridItemsDroppedEventArgs e) {
