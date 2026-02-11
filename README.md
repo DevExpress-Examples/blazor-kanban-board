@@ -12,15 +12,6 @@ This example implements a Kanban Board control (`DxKanban`) using the [DevExpres
 
 ![Blazor Kanban Board UI Component](images/blazor-kanban-board.gif)
 
-## Quick Start
-
-The Kanban Board component should fetch data from the same port that the application uses. Before you run this example, open `launchSettings.json`, copy the port number, and paste it into the JSON data URL in the [Index](./CS/BlazorKanban/Components/Pages/Index.razor#L41) page:
-
-```csharp
-KanbanData = await Http.GetFromJsonAsync<List<KanbanModel>>(
-    "https://localhost:50295/data/kanban.json") ?? new(); // Update the port number here
-```
-
 ## Get Started with Kanban Board
 
 Replicate the steps below to add the Kanban Board component to your DevExpress-powered Blazor application:
@@ -103,7 +94,7 @@ Main classes include:
   - [DxKanbanColumn.razor.cs](./CS/BlazorKanban/Components/DxKanban/DxKanbanColumn.razor.cs)
 - [DxKanbanColumnGrid.razor](./CS/BlazorKanban/Components/DxKanban/DxKanbanColumnGrid.razor)
   - [DxKanbanColumnGrid.razor.cs](./CS/BlazorKanban/Components/DxKanban/DxKanbanColumnGrid.razor.cs)
-- [kanban.json](./CS/BlazorKanban/wwwroot/data/kanban.json)
+- [KanbanModel.cs](./CS/BlazorKanban/Data/KanbanModel.cs)
 - [kanban.css](./CS/BlazorKanban/wwwroot/css/kanban.css)
 - [card-styles.css](./CS/BlazorKanban/wwwroot/css/card-styles.css)
 
