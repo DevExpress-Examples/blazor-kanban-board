@@ -3,18 +3,18 @@
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 [![](https://img.shields.io/badge/💬_Leave_Feedback-feecdd?style=flat-square)](#does-this-example-address-your-development-requirementsobjectives)
 <!-- default badges end -->
-# Blazor - How to Implement a Kanban Board Component
+# Blazor - Implement a Kanban Board Component
 
-This example implements a Kanban Board control (`DxKanban`) using the [DevExpress Blazor Grid component](https://docs.devexpress.com/Blazor/403143/components/grid). The Kanban Board UI component includes the following features/capabilities:
+This example implements a Kanban Board component (`DxKanban`) using the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/components/grid). The Kanban Board UI component includes the following features/capabilities:
 
-* Organizes cards across different columns
+* Organizes cards in columns
 * Allows users to reorder cards/columns using drag & drop
 
 ![Blazor Kanban Board UI Component](images/blazor-kanban-board.gif)
 
 ## Get Started with Kanban Board
 
-Replicate the steps below to add the Kanban Board component to your DevExpress-powered Blazor application:
+Follow the steps below to add a Kanban Board component to your DevExpress-powered Blazor application:
 
 1. Copy the [DxKanban](./CS/BlazorKanban/Components/DxKanban) folder to the *Components* folder.
 
@@ -31,13 +31,13 @@ Replicate the steps below to add the Kanban Board component to your DevExpress-p
 
 3. Register the `BlazorKanban.Components.DxKanban` namespace in the *Components/Imports.razor* file.
 
-4. Open a page and enable interactivity on it.
+4. Open/create a Razor page and enable interactivity.
 
-5. Add the Kanban Board component (`DxKanban`) to the page and configure component settings listed in the next section.
+5. Add the Kanban Board component (`DxKanban`) to the page and configure component settings (refer to the next section).
 
 ## DxKanban API Members
 
-### Properties:
+### Properties
 
 - **Data**  
 Specifies an [IEnumerable](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) object that supplies Kanban Board data.
@@ -46,7 +46,7 @@ Specifies an [IEnumerable](https://learn.microsoft.com/en-us/dotnet/api/system.c
 Defines a card appearance.
 
 - **ColumnNameFieldName**  
-Specifies a data field that identifies the target column for a card.
+Specifies a data field that identifies the card target column.
 
 - **Columns**  
 Allows you to add Kanban Board columns (`DxKanbanColumn`). For each column, assign an identifier to the `ColumnName` property. This identifier must match a `ColumnNameFieldName` field value.
@@ -54,7 +54,7 @@ Allows you to add Kanban Board columns (`DxKanbanColumn`). For each column, assi
 - **CssClass**  
 Allows you to customize component appearance using CSS.
 
-### Events:
+### Events
 
 - **CardDropped**
 
@@ -64,19 +64,19 @@ Allows you to customize component appearance using CSS.
 
 ## Implementation Details
 
-Internally, the Kanban Board component is a [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/components/grid) that displays nested Grids within columns. A card is a nested Grid's row.
+Internally, the Kanban Board component is a [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/components/grid) that displays nested Grids within columns. Each card is a nested Grid's row.
 
 Main classes include:
 
 * **DxKanban**
 
-  Renders a root-level Grid component. The Grid is bound to a fake single-row data source, displays multiple columns (`DxKanbanColumn`), and allows users to reorder them. The component uses [CascadingValue](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters#cascadingvalue-component) to pass Kanban Board settings to columns.
+  Creates a root-level Grid component. The Grid is bound to a fake single-row data source with multiple reordable columns (`DxKanbanColumn`). The component uses [CascadingValue](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters#cascadingvalue-component) to pass Kanban Board settings to columns.
 
-  To allow users to drag cards directly (without a drag handle), the component executes JS code in [AfterRenderAsync](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle#after-component-render-onafterrenderasync).
+  To allow users to drag cards without a drag handle, the component executes JS code in [AfterRenderAsync](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle#after-component-render-onafterrenderasync).
 
 * **DxKanbanColumn**
 
-  Renders a [DxGridDataColumn](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn) with one data cell. The data cell contains a nested Grid with cards (`DxKanbanColumnGrid`).
+  Creates a [DxGridDataColumn](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn) with one data cell. The data cell contains a nested Grid with cards (`DxKanbanColumnGrid`).
 
 * **DxKanbanColumnGrid**
 
