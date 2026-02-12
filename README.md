@@ -77,7 +77,7 @@ Main classes include:
 
 * [DxKanban](./CS/BlazorKanban/Components/DxKanban/DxKanban.razor)
 
-  Creates a root-level Grid component. The Grid is bound to a fake single-row data source with multiple reordable columns (`DxKanbanColumn`). The component uses [CascadingValue](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters#cascadingvalue-component) to pass Kanban Board settings to columns.
+  Creates a root-level Grid component. The Grid is bound to a fake single-row data source with multiple reorderable columns (`DxKanbanColumn`). The component uses [CascadingValue](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters#cascadingvalue-component) to pass Kanban Board settings to columns.
 
   To allow users to drag cards without a drag handle, the component executes JS code in [AfterRenderAsync](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle#after-component-render-onafterrenderasync).
 
