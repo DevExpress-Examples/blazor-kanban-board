@@ -12,11 +12,11 @@ This example implements a Kanban Board component (`DxKanban`) using the [DevExpr
 
 ![Blazor Kanban Board UI Component](images/blazor-kanban-board.gif)
 
-## Get Started with Kanban Board
+## Add a Kanban Board to Your Application
 
 Follow the steps below to add a Kanban Board component to your DevExpress-powered Blazor application:
 
-1. Copy the [DxKanban](./CS/BlazorKanban/Components/DxKanban) folder to the *Components* folder.
+1. Copy the [DxKanban](./CS/BlazorKanban/Components/DxKanban) folder to your application's *Components* folder.
 
 2. Copy the [kanban.css](./CS/BlazorKanban/wwwroot/css/kanban.css) stylesheet to the *wwwroot/css* folder. Register the stylesheet in the *App.razor* file:
 
@@ -27,13 +27,20 @@ Follow the steps below to add a Kanban Board component to your DevExpress-powere
     }))
     ```
 
-    Optionally, you can also copy and register the [card-styles.css](./CS/BlazorKanban/wwwroot/css/card-styles.css) file (contains styles for Kanban cards).
+3. Copy and register the [card-styles.css](./CS/BlazorKanban/wwwroot/css/card-styles.css) file to recreate card appearance (defined in `CardTemplate`). Skip this step if you plan to customize card layout and styling.
 
-3. Register the `BlazorKanban.Components.DxKanban` namespace in the *Components/Imports.razor* file.
+    ```razor
+    @DxResourceManager.RegisterTheme(Themes.Fluent.Clone(properties => {
+        properties.AddFilePaths("css/card-styles.css");
+        // ...
+    }))
+    ```
 
-4. Open/create a Razor page and enable interactivity.
+4. Register the `BlazorKanban.Components.DxKanban` namespace in the *Components/Imports.razor* file.
 
-5. Add the Kanban Board component (`DxKanban`) to the page and configure component settings (refer to the next section).
+5. Open/create a Razor page and enable interactivity.
+
+6. Add the Kanban Board component (`DxKanban`) to the page and configure component settings (refer to the next section).
 
 ## DxKanban API Members
 
@@ -58,7 +65,7 @@ Allows you to customize component appearance using CSS.
 
 - **CardDropped**
 
-  Fires once a user drops a card. In the event handler, update the data source: insert the card at the drop position and remove it from the initial position.  
+  Fires on a card drop. In the event handler, update the data source: insert the card at the drop position and remove it from the initial position.  
 
   For simplicity, this event uses [GridItemsDroppedEventArgs](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridItemsDroppedEventArgs).
 
@@ -68,17 +75,17 @@ Internally, the Kanban Board component is a [DevExpress Blazor Grid](https://doc
 
 Main classes include:
 
-* **DxKanban**
+* [DxKanban](./CS/BlazorKanban/Components/DxKanban/DxKanban.razor)
 
   Creates a root-level Grid component. The Grid is bound to a fake single-row data source with multiple reordable columns (`DxKanbanColumn`). The component uses [CascadingValue](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/cascading-values-and-parameters#cascadingvalue-component) to pass Kanban Board settings to columns.
 
   To allow users to drag cards without a drag handle, the component executes JS code in [AfterRenderAsync](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/lifecycle#after-component-render-onafterrenderasync).
 
-* **DxKanbanColumn**
+* [DxKanbanColumn](./CS/BlazorKanban/Components/DxKanban/DxKanbanColumn.razor)
 
   Creates a [DxGridDataColumn](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn) with one data cell. The data cell contains a nested Grid with cards (`DxKanbanColumnGrid`).
 
-* **DxKanbanColumnGrid**
+* [DxKanbanColumnGrid](./CS/BlazorKanban/Components/DxKanban/DxKanbanColumnGrid.razor)
 
   A nested Grid component that obtains Kanban Board data, filters it by column name (`DxKanban.ColumnNameFieldName`), and displays the resulting collection as cards. [DragHintTextTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.DragHintTextTemplate) and [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.CellDisplayTemplate) specify card appearance.
   
