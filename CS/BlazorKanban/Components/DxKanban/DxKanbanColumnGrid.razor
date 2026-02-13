@@ -1,4 +1,6 @@
-﻿<DxGrid AllowDragRows=true
+﻿@namespace BlazorKanban.Components.DxKanban
+
+<DxGrid AllowDragRows=true
         AllowedDropTarget="GridAllowedDropTarget.All"
         ItemsDropped="Kanban.CardDropped"
         Data="GetDataFilteredByColumnName(ColumnName)"
