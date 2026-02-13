@@ -3,12 +3,12 @@
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 [![](https://img.shields.io/badge/💬_Leave_Feedback-feecdd?style=flat-square)](#does-this-example-address-your-development-requirementsobjectives)
 <!-- default badges end -->
-# Blazor - Implement a Kanban Board Component
+# Blazor - Implement a Kanban Board Component with the DevExpress Blazor Grid
 
 This example implements a Kanban Board component (`DxKanban`) using the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/components/grid). The Kanban Board UI component includes the following features/capabilities:
 
-* Organizes cards in columns
-* Allows users to reorder cards/columns using drag & drop
+* Organizes cards across columns
+* Allows users to reorder cards/columns via drag & drop
 
 ![Blazor Kanban Board UI Component](images/blazor-kanban-board.gif)
 
@@ -50,7 +50,7 @@ Follow the steps below to add a Kanban Board component to your DevExpress-powere
 Specifies an [IEnumerable](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) object that supplies Kanban Board data.
 
 - **CardTemplate**  
-Defines a card appearance.
+Defines card appearance.
 
 - **ColumnNameFieldName**  
 Specifies a data field that identifies the card target column.
@@ -71,7 +71,7 @@ Allows you to customize component appearance using CSS.
 
 ## Implementation Details
 
-Internally, the Kanban Board component is a [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/components/grid) that displays nested Grids within columns. Each card is a nested Grid's row.
+Internally, the Kanban Board component is a [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/components/grid) that displays nested Grids within columns. Each card is a nested Grid row.
 
 Main classes include:
 
